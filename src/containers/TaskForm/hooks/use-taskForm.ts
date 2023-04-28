@@ -1,10 +1,16 @@
-import SaveTask from "../../../../types/SaveTask";
+import Task from "../../../../types/Task";
+import TaskDataToSave from "../../../../types/TaskDataToSave";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import moment from "moment";
 
-const useTaskForm = (save: SaveTask) => {
+type Props = {
+  save: (data: Task | TaskDataToSave) => void;
+  taskToEdit: Task | undefined;
+};
+
+const useTaskForm = ({ save, taskToEdit }: Props) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("story");
   const [timeSpend, setTimeSpend] = useState(0);
@@ -14,6 +20,16 @@ const useTaskForm = (save: SaveTask) => {
   const [datesList, setDatesList] = useState<Date[]>([]);
 
   const [hasSubmittedForm, setHasSubmittedForm] = useState(false);
+
+  useEffect(() => {
+    if (!taskToEdit) return;
+
+    setName(taskToEdit.name);
+    setType(taskToEdit.type);
+    setTimeSpend(taskToEdit.timeSpend);
+    setLabelsListIds(taskToEdit.labels);
+    setDatesList(taskToEdit.daysList);
+  }, [taskToEdit]);
 
   //   NAME
   const handleTypeName = (event: React.FormEvent<EventTarget>) => {
@@ -89,6 +105,8 @@ const useTaskForm = (save: SaveTask) => {
     setHasSubmittedForm(true);
 
     if (isFormValid) {
+      const id = taskToEdit ? taskToEdit.id : null;
+
       save({
         name,
         type,

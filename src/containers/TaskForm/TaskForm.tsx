@@ -1,3 +1,4 @@
+import Task from "../../../types/Task";
 import Label from "../../../types/Label";
 import SaveTask from "../../../types/SaveTask";
 
@@ -22,7 +23,9 @@ const labelsList: Label[] = [
   { id: 9, name: "Label 9" },
 ];
 
-const TaskForm = ({ save }: { save: SaveTask }) => {
+type Props = { save: SaveTask; task?: Task };
+
+const TaskForm = ({ save, task }: Props) => {
   const {
     // NAME
     name,
@@ -48,7 +51,7 @@ const TaskForm = ({ save }: { save: SaveTask }) => {
     isFormValid,
     hasSubmittedForm,
     handleSubmitForm,
-  } = useTaskForm(save);
+  } = useTaskForm({ save, taskToEdit: task });
 
   return (
     <Form onSubmit={handleSubmitForm}>

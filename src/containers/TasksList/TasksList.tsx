@@ -3,9 +3,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 
-import TaskForm from "../TaskForm/TaskForm";
+import CreateTaskModal from "../CreateTaskModal/CreateTaskModal";
+import EditTaskModal from "../EditTaskModal/EditTaskModal";
 
 import useTasksList from "./hooks/us-tasksList";
 
@@ -15,29 +15,41 @@ const TasksList = () => {
   const {
     // CREATE TASK MODAL
     showCreateTaskModal,
-    handleClickToggleCreateTaskModal,
+    handleClickOpenCreateTaskModal,
+    handleClickCloseCreateTaskModal,
     // TASKS LIST
     tasksList,
     createTaskAndCloseModal,
+    // REMOVE
+    handleClickRemoveTask,
+    // EDIT
+    taskToEdit,
+    handleClickEditTask,
+    showEditTaskModal,
+    handleClickCloseEditTaskModal,
+    saveEditTask,
   } = useTasksList();
+
+  console.log(
+    "🚀 ~ file: TasksList.tsx:38 ~ TasksList ~ showCreateTaskModal:",
+    showCreateTaskModal
+  );
 
   return (
     <>
       {/* CREATE TASK MODAL */}
-      <Modal
-        size="lg"
+      <CreateTaskModal
         show={showCreateTaskModal}
-        onHide={handleClickToggleCreateTaskModal}
-        className="bigModal"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Create a task</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <TaskForm save={createTaskAndCloseModal} />
-        </Modal.Body>
-        <Modal.Footer></Modal.Footer>
-      </Modal>
+        handleClickClose={handleClickCloseCreateTaskModal}
+        save={createTaskAndCloseModal}
+      />
+
+      <EditTaskModal
+        show={showEditTaskModal}
+        handleClickClose={handleClickCloseEditTaskModal}
+        taskToEdit={taskToEdit}
+        save={saveEditTask}
+      />
 
       {/* MODALS LIST */}
       <Container>
@@ -45,14 +57,14 @@ const TasksList = () => {
           <Col>
             <Button
               className="mt-3 mb-3"
-              onClick={handleClickToggleCreateTaskModal}
+              onClick={handleClickOpenCreateTaskModal}
             >
               Add a task
             </Button>
 
             <ListGroup>
-              {tasksList.map((task) => (
-                <ListGroup.Item className={classes.taskItem}>
+              {tasksList.map((task, index) => (
+                <ListGroup.Item className={classes.taskItem} key={index}>
                   <div>{task.id}</div>
                   <div>{task.name}</div>
                   <div>{task.type}</div>
@@ -60,8 +72,18 @@ const TasksList = () => {
                   <div>{task.timeSpend}h</div>
                   <div>{task.daysList.length} dias</div>
                   <div>
-                    <Button variant="secondary">Edit</Button>
-                    <Button variant="secondary">Delete</Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => handleClickEditTask(task.id)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => handleClickRemoveTask(task.id)}
+                    >
+                      Delete
+                    </Button>
                   </div>
                 </ListGroup.Item>
               ))}

@@ -54,22 +54,61 @@ const demoTasksLists = [
 const useTasksList = () => {
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
   const [tasksList, setTasksList] = useState<Task[]>(demoTasksLists);
+  const [taskIdToEdit, setTaskIdToEdit] = useState<number | undefined>();
 
-  const handleClickToggleCreateTaskModal = () =>
-    setShowCreateTaskModal((prev) => !prev);
+  // CREATE TASK
+  const handleClickOpenCreateTaskModal = () => setShowCreateTaskModal(true);
+  const handleClickCloseCreateTaskModal = () => setShowCreateTaskModal(false);
 
   const createTaskAndCloseModal = (taskToAdd: TaskDataToSave) => {
     setTasksList((prev) => [...prev, { id: tasksList.length, ...taskToAdd }]);
     setShowCreateTaskModal(false);
   };
 
+  // REMOVE TASK
+  const handleClickRemoveTask = (taskId: Number) => {
+    setTasksList((prev) => prev.filter((task) => task.id !== taskId));
+  };
+
+  // EDIT TASK
+  const taskToEdit = tasksList.find((task) => task.id === taskIdToEdit);
+  const showEditTaskModal = !!taskToEdit;
+  const closeEditTaskModal = () => setTaskIdToEdit(undefined);
+  const handleClickCloseEditTaskModal = closeEditTaskModal;
+
+  const handleClickEditTask = (taskId: number) => {
+    setTaskIdToEdit(taskId);
+  };
+
+  const saveEditTask = (updatedTaskValues: TaskDataToSave) => {
+    setTasksList((prev) =>
+      prev.map((task) => {
+        if (task.id === taskIdToEdit) {
+          return { ...task, ...updatedTaskValues };
+        }
+
+        return task;
+      })
+    );
+    closeEditTaskModal();
+  };
+
   return {
     // CREATE TASK MODAL
     showCreateTaskModal,
-    handleClickToggleCreateTaskModal,
+    handleClickOpenCreateTaskModal,
+    handleClickCloseCreateTaskModal,
     // TASKS LIST
     tasksList,
     createTaskAndCloseModal,
+    // REMOVE
+    handleClickRemoveTask,
+    // EDIT
+    taskToEdit,
+    handleClickEditTask,
+    showEditTaskModal,
+    handleClickCloseEditTaskModal,
+    saveEditTask,
   };
 };
 
