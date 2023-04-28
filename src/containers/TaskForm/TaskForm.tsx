@@ -42,10 +42,15 @@ const TaskForm = () => {
     datesList,
     handleClickAddDateToList,
     formateDateToString,
+    // SUBMIT FORM
+    isValid,
+    isFormValid,
+    hasSubmittedForm,
+    handleSubmitForm,
   } = useTaskForm();
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmitForm}>
       <Container>
         <Row>
           <Col>
@@ -56,7 +61,12 @@ const TaskForm = () => {
                 placeholder=""
                 value={name}
                 onChange={handleTypeName}
+                isValid={hasSubmittedForm && isValid.name}
+                isInvalid={hasSubmittedForm && !isValid.name}
               />
+              <Form.Control.Feedback type="invalid">
+                Name is required
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -64,9 +74,14 @@ const TaskForm = () => {
           <Col>
             <Form.Group className="mb-3" controlId="task.type">
               <Form.Label>Type</Form.Label>
-              <Form.Select value={type} onChange={handleTypeType}>
-                <option>Story</option>
-                <option>Bug</option>
+              <Form.Select
+                value={type}
+                onChange={handleTypeType}
+                isValid={hasSubmittedForm && isValid.type}
+                isInvalid={hasSubmittedForm && !isValid.type}
+              >
+                <option value="story">Story</option>
+                <option value="bug">Bug</option>
               </Form.Select>
             </Form.Group>
           </Col>
@@ -78,7 +93,12 @@ const TaskForm = () => {
                 placeholder=""
                 value={timeSpend}
                 onChange={handleTypeTimeSpend}
+                isValid={hasSubmittedForm && isValid.timeSpend}
+                isInvalid={hasSubmittedForm && !isValid.timeSpend}
               />
+              <Form.Control.Feedback type="invalid">
+                Time spend is required
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Row>
@@ -129,7 +149,12 @@ const TaskForm = () => {
         </Row>
         <Row>
           <Col>
-            <Button>Submit</Button>
+            <Button type="submit">Submit</Button>
+            {hasSubmittedForm && !isFormValid && (
+              <Form.Control.Feedback type="invalid" className="d-block">
+                Form could not be sumbitted, there are errors in the fields
+              </Form.Control.Feedback>
+            )}
           </Col>
         </Row>
       </Container>

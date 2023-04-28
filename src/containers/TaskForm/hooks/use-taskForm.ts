@@ -4,12 +4,14 @@ import moment from "moment";
 
 const useTaskForm = () => {
   const [name, setName] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("story");
   const [timeSpend, setTimeSpend] = useState(0);
   const [labelsListIds, setLabelsListIds] = useState<number[]>([]);
 
   const [dateToAdd, setDateToAdd] = useState("");
   const [datesList, setDatesList] = useState<Date[]>([]);
+
+  const [hasSubmittedForm, setHasSubmittedForm] = useState(false);
 
   //   NAME
   const handleTypeName = (event: React.FormEvent<EventTarget>) => {
@@ -66,6 +68,25 @@ const useTaskForm = () => {
   const formateDateToString = (date: Date | undefined) =>
     moment(date).format("YYYY-MM-DD");
 
+  // VALIDATION
+  const isNameValid = name.length > 0;
+  const isTypeValid = true;
+  const isTimeSpendValid = timeSpend > 0;
+
+  const isValid = {
+    name: isNameValid,
+    type: isTypeValid,
+    timeSpend: isTimeSpendValid,
+  };
+
+  const isFormValid = isNameValid && isTypeValid && isTimeSpendValid;
+
+  const handleSubmitForm = (event: React.FormEvent<EventTarget>) => {
+    event.preventDefault();
+
+    setHasSubmittedForm(true);
+  };
+
   return {
     // NAME
     name,
@@ -86,6 +107,11 @@ const useTaskForm = () => {
     datesList,
     handleClickAddDateToList,
     formateDateToString,
+    // SUBMIT FORM
+    isValid,
+    isFormValid,
+    hasSubmittedForm,
+    handleSubmitForm,
   };
 };
 

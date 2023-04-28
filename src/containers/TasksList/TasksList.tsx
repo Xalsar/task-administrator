@@ -30,19 +30,12 @@ const TasksList = () => {
         className="bigModal"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Create a task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <TaskForm />
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={handleClickToggleCreateTaskModal}
-          >
-            Close
-          </Button>
-        </Modal.Footer>
+        <Modal.Footer></Modal.Footer>
       </Modal>
 
       {/* MODALS LIST */}
