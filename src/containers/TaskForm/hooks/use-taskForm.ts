@@ -105,8 +105,6 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
     setHasSubmittedForm(true);
 
     if (isFormValid) {
-      const id = taskToEdit ? taskToEdit.id : null;
-
       save({
         name,
         type,

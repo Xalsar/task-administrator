@@ -30,11 +30,6 @@ const TasksList = () => {
     saveEditTask,
   } = useTasksList();
 
-  console.log(
-    "🚀 ~ file: TasksList.tsx:38 ~ TasksList ~ showCreateTaskModal:",
-    showCreateTaskModal
-  );
-
   return (
     <>
       {/* CREATE TASK MODAL */}
@@ -70,7 +65,7 @@ const TasksList = () => {
                   <div>{task.type}</div>
                   <div>{task.labels.join(",")}</div>
                   <div>{task.timeSpend}h</div>
-                  <div>{task.daysList.length} dias</div>
+                  <div>{task.daysList.length} days</div>
                   <div>
                     <Button
                       variant="secondary"

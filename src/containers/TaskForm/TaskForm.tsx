@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
 
 import useTaskForm from "./hooks/use-taskForm";
@@ -142,13 +143,24 @@ const TaskForm = ({ save, task }: Props) => {
             <Button className="mb-3" onClick={handleClickAddDateToList}>
               Add date to list
             </Button>
-            <ListGroup className="mb-3">
-              {datesList.map((date, key) => (
-                <ListGroup.Item key={key}>
-                  {formateDateToString(date)}
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+            {datesList.length > 0 ? (
+              <ListGroup className="mb-3">
+                {datesList.map((date, key) => (
+                  <ListGroup.Item key={key}>
+                    {formateDateToString(date)}
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            ) : (
+              <Alert>
+                <p>There are no days in this task </p>
+                <hr />
+                <p>
+                  Use the input above and the button "Add date to list" to add
+                  some.
+                </p>
+              </Alert>
+            )}
           </Col>
         </Row>
         <Row>
