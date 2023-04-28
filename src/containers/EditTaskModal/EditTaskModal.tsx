@@ -16,7 +16,7 @@ const EditTaskModal = ({ show, handleClickClose, save, taskToEdit }: Props) => {
   return (
     <Modal size="lg" show={show} onHide={handleClickClose} className="bigModal">
       <Modal.Header closeButton>
-        <Modal.Title>Create a task</Modal.Title>
+        <Modal.Title>Edit a task</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <TaskForm save={save} task={taskToEdit} />

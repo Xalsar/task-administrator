@@ -86,6 +86,10 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   const formateDateToString = (date: Date | undefined) =>
     moment(date).format("YYYY-MM-DD");
 
+  const handleClickDeleteDate = (dateToDelete: Date) => {
+    setDatesList((prev) => prev.filter((date) => date !== dateToDelete));
+  };
+
   // VALIDATION
   const isNameValid = name.length > 0;
   const isTypeValid = true;
@@ -135,6 +139,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
     datesList,
     handleClickAddDateToList,
     formateDateToString,
+    handleClickDeleteDate,
     // SUBMIT FORM
     isValid,
     isFormValid,

@@ -12,6 +12,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 import useTaskForm from "./hooks/use-taskForm";
 
+import classes from "./TaskForm.module.scss";
+
 const labelsList: Label[] = [
   { id: 1, name: "Label 1" },
   { id: 2, name: "Label 2" },
@@ -47,6 +49,7 @@ const TaskForm = ({ save, task }: Props) => {
     datesList,
     handleClickAddDateToList,
     formateDateToString,
+    handleClickDeleteDate,
     // SUBMIT FORM
     isValid,
     isFormValid,
@@ -144,10 +147,17 @@ const TaskForm = ({ save, task }: Props) => {
               Add date to list
             </Button>
             {datesList.length > 0 ? (
-              <ListGroup className="mb-3">
+              <ListGroup className={"mb-3"}>
                 {datesList.map((date, key) => (
-                  <ListGroup.Item key={key}>
+                  <ListGroup.Item key={key} className={classes.dateListItem}>
                     {formateDateToString(date)}
+
+                    <Button
+                      onClick={() => handleClickDeleteDate(date)}
+                      variant="secondary"
+                    >
+                      Eliminar
+                    </Button>
                   </ListGroup.Item>
                 ))}
               </ListGroup>
