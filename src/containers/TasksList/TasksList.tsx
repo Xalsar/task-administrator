@@ -18,6 +18,7 @@ const TasksList = () => {
     handleClickToggleCreateTaskModal,
     // TASKS LIST
     tasksList,
+    createTaskAndCloseModal,
   } = useTasksList();
 
   return (
@@ -33,7 +34,7 @@ const TasksList = () => {
           <Modal.Title>Create a task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <TaskForm />
+          <TaskForm save={createTaskAndCloseModal} />
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
@@ -54,7 +55,8 @@ const TasksList = () => {
                 <ListGroup.Item className={classes.taskItem}>
                   <div>{task.id}</div>
                   <div>{task.name}</div>
-                  <div>Label 1, Label 2, Label 3, Label 4</div>
+                  <div>{task.type}</div>
+                  <div>{task.labels.join(",")}</div>
                   <div>{task.timeSpend}h</div>
                   <div>{task.daysList.length} dias</div>
                   <div>

@@ -1,4 +1,5 @@
 import Label from "../../../types/Label";
+import SaveTask from "../../../types/SaveTask";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -21,7 +22,7 @@ const labelsList: Label[] = [
   { id: 9, name: "Label 9" },
 ];
 
-const TaskForm = () => {
+const TaskForm = ({ save }: { save: SaveTask }) => {
   const {
     // NAME
     name,
@@ -47,7 +48,7 @@ const TaskForm = () => {
     isFormValid,
     hasSubmittedForm,
     handleSubmitForm,
-  } = useTaskForm();
+  } = useTaskForm(save);
 
   return (
     <Form onSubmit={handleSubmitForm}>

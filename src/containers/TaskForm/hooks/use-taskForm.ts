@@ -1,8 +1,10 @@
+import SaveTask from "../../../../types/SaveTask";
+
 import { useState } from "react";
 
 import moment from "moment";
 
-const useTaskForm = () => {
+const useTaskForm = (save: SaveTask) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("story");
   const [timeSpend, setTimeSpend] = useState(0);
@@ -85,6 +87,16 @@ const useTaskForm = () => {
     event.preventDefault();
 
     setHasSubmittedForm(true);
+
+    if (isFormValid) {
+      save({
+        name,
+        type,
+        labels: labelsListIds,
+        timeSpend,
+        daysList: datesList,
+      });
+    }
   };
 
   return {
