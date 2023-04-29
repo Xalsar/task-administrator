@@ -104,6 +104,26 @@ const useTasksList = () => {
     });
   };
 
+  // DOWNLOAD
+  const handleClickDownloadTasks = () => {
+    const obj = tasksList;
+    const data =
+      "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(obj));
+
+    const a = document.createElement("a");
+    a.href = "data:" + data;
+    a.download = "data.json";
+    a.innerHTML = "download JSON";
+    a.style.display = "none";
+
+    const container = document.querySelector("body");
+    container?.appendChild(a);
+
+    a.click();
+
+    a.remove();
+  };
+
   return {
     // CREATE TASK MODAL
     showCreateTaskModal,
@@ -122,6 +142,8 @@ const useTasksList = () => {
     saveEditTask,
     // DISPLAY TASKS
     getLabelNamesFromIds,
+    // DOWNLOAD
+    handleClickDownloadTasks,
   };
 };
 

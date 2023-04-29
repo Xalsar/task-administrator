@@ -32,6 +32,8 @@ const TasksList = () => {
     saveEditTask,
     // DISPLAY TASKS
     getLabelNamesFromIds,
+    // DOWNLOAD
+    handleClickDownloadTasks,
   } = useTasksList();
 
   return (
@@ -59,6 +61,9 @@ const TasksList = () => {
               onClick={handleClickOpenCreateTaskModal}
             >
               Add a task
+            </Button>
+            <Button className="mx-3" onClick={handleClickDownloadTasks}>
+              Download current tasks (JSON)
             </Button>
 
             <ListGroup>
