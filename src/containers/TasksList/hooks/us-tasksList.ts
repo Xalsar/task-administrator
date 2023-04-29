@@ -1,3 +1,5 @@
+import labels from "../../../mockData/labels.json";
+
 import TaskDataToSave from "../../../../types/TaskDataToSave";
 import Task from "../../../../types/Task";
 
@@ -93,6 +95,15 @@ const useTasksList = () => {
     closeEditTaskModal();
   };
 
+  // DISPLAY TASKS
+  const getLabelNamesFromIds = (labelsIds: number[]) => {
+    return labelsIds.map((labelId) => {
+      const labelData = labels.find((label) => labelId === label.id);
+
+      return labelData?.name;
+    });
+  };
+
   return {
     // CREATE TASK MODAL
     showCreateTaskModal,
@@ -109,6 +120,8 @@ const useTasksList = () => {
     showEditTaskModal,
     handleClickCloseEditTaskModal,
     saveEditTask,
+    // DISPLAY TASKS
+    getLabelNamesFromIds,
   };
 };
 

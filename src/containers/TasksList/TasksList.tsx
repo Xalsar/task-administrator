@@ -1,3 +1,5 @@
+import labels from "../../mockData/labels.json";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -28,6 +30,8 @@ const TasksList = () => {
     showEditTaskModal,
     handleClickCloseEditTaskModal,
     saveEditTask,
+    // DISPLAY TASKS
+    getLabelNamesFromIds,
   } = useTasksList();
 
   return (
@@ -63,7 +67,7 @@ const TasksList = () => {
                   <div>{task.id}</div>
                   <div>{task.name}</div>
                   <div>{task.type}</div>
-                  <div>{task.labels.join(",")}</div>
+                  <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
                   <div>{task.timeSpend}h</div>
                   <div>{task.daysList.length} days</div>
                   <div>

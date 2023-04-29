@@ -9,22 +9,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
+import labelsList from "../../mockData/labels.json";
 
 import useTaskForm from "./hooks/use-taskForm";
 
 import classes from "./TaskForm.module.scss";
-
-const labelsList: Label[] = [
-  { id: 1, name: "Label 1" },
-  { id: 2, name: "Label 2" },
-  { id: 3, name: "Label 3" },
-  { id: 4, name: "Label 4" },
-  { id: 5, name: "Label 5" },
-  { id: 6, name: "Label 6" },
-  { id: 7, name: "Label 7" },
-  { id: 8, name: "Label 8" },
-  { id: 9, name: "Label 9" },
-];
 
 type Props = { save: SaveTask; task?: Task };
 
