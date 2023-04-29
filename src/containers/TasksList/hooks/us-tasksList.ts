@@ -124,6 +124,20 @@ const useTasksList = () => {
     a.remove();
   };
 
+  // UPLOAD FILE
+  const onReaderLoad = (event: React.FormEvent<EventTarget>) => {
+    const target: any = event.target as HTMLInputElement;
+
+    const obj = JSON.parse(target.result);
+    setTasksList(obj);
+  };
+
+  const handleUploadFile = (event: any) => {
+    const reader: any = new FileReader();
+    reader.onload = onReaderLoad;
+    reader.readAsText(event.target.files[0]);
+  };
+
   return {
     // CREATE TASK MODAL
     showCreateTaskModal,
@@ -144,6 +158,8 @@ const useTasksList = () => {
     getLabelNamesFromIds,
     // DOWNLOAD
     handleClickDownloadTasks,
+    // UPLOAD FILE
+    handleUploadFile,
   };
 };
 
