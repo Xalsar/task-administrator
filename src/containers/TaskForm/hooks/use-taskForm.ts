@@ -21,6 +21,8 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
 
   const [hasSubmittedForm, setHasSubmittedForm] = useState(false);
 
+  const [tryedToAddExistingDate, setTryedToAddExistingDate] = useState(false);
+
   useEffect(() => {
     if (!taskToEdit) return;
 
@@ -74,21 +76,33 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
     const target = event.target as HTMLInputElement;
 
     setDateToAdd(String(target.value));
-  };
-
-  const handleClickAddDateToList = () => {
-    const formattedDate = new Date(dateToAdd);
-
-    setDateToAdd("");
-    setDatesList((prev) => [...prev, formattedDate]);
+    setTryedToAddExistingDate(false);
   };
 
   const formateDateToString = (date: Date | undefined) =>
     moment(date).format("YYYY-MM-DD");
 
+  const handleClickAddDateToList = () => {
+    const formattedDate = new Date(dateToAdd);
+
+    const isPickedDateAlreadyInTheList = datesList.find(
+      (date) => formateDateToString(date) === formateDateToString(formattedDate)
+    );
+
+    if (isPickedDateAlreadyInTheList) {
+      setTryedToAddExistingDate(true);
+      return;
+    }
+
+    setDateToAdd("");
+    setDatesList((prev) => [...prev, formattedDate]);
+  };
+
   const handleClickDeleteDate = (dateToDelete: Date) => {
     setDatesList((prev) => prev.filter((date) => date !== dateToDelete));
   };
+
+  const isNoDatePicked = !dateToAdd;
 
   // VALIDATION
   const isNameValid = name.length > 0;
@@ -140,6 +154,8 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
     handleClickAddDateToList,
     formateDateToString,
     handleClickDeleteDate,
+    tryedToAddExistingDate,
+    isNoDatePicked,
     // SUBMIT FORM
     isValid,
     isFormValid,

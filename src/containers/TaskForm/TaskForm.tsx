@@ -50,6 +50,8 @@ const TaskForm = ({ save, task }: Props) => {
     handleClickAddDateToList,
     formateDateToString,
     handleClickDeleteDate,
+    tryedToAddExistingDate,
+    isNoDatePicked,
     // SUBMIT FORM
     isValid,
     isFormValid,
@@ -143,11 +145,19 @@ const TaskForm = ({ save, task }: Props) => {
                 onChange={handlePickDate}
               />
             </Form.Group>
-            <Button className="mb-3" onClick={handleClickAddDateToList}>
+            <Button
+              onClick={handleClickAddDateToList}
+              disabled={isNoDatePicked}
+            >
               Add date to list
             </Button>
+            {tryedToAddExistingDate && (
+              <Form.Control.Feedback type="invalid" className="d-block">
+                There can not be duplicated dates, pick another one
+              </Form.Control.Feedback>
+            )}
             {datesList.length > 0 ? (
-              <ListGroup className={"mb-3"}>
+              <ListGroup className={"mt-3 mb-3"}>
                 {datesList.map((date, key) => (
                   <ListGroup.Item key={key} className={classes.dateListItem}>
                     {formateDateToString(date)}
