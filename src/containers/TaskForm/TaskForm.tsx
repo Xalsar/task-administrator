@@ -156,7 +156,7 @@ const TaskForm = ({ save, task }: Props) => {
                       onClick={() => handleClickDeleteDate(date)}
                       variant="secondary"
                     >
-                      Eliminar
+                      Delete
                     </Button>
                   </ListGroup.Item>
                 ))}
