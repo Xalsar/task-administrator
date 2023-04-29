@@ -1,9 +1,12 @@
 import labels from "../../../mockData/labels.json";
 
+import { useState } from "react";
+
 import TaskDataToSave from "../../../../types/TaskDataToSave";
 import Task from "../../../../types/Task";
 
-import { useState } from "react";
+import checkIfListIsInsideList from "../utils/checkIfListIsInsideList";
+import showErrrorMessageFilesInvalid from "../utils/alerts/showErrrorMessageFilesInvalidshowErrrorMessageFilesInvalid";
 
 const demoTasksLists = [
   {
@@ -129,6 +132,30 @@ const useTasksList = () => {
     const target: any = event.target as HTMLInputElement;
 
     const obj = JSON.parse(target.result);
+
+    const isEnteringDataAnArray = Array.isArray(obj);
+
+    // VALIDATE ENTERING DATA
+    if (!isEnteringDataAnArray) {
+      showErrrorMessageFilesInvalid();
+
+      return;
+    }
+
+    for (const dataItem of obj) {
+      const dataItemKeys = Object.keys(dataItem);
+
+      const doesObjectHaveAllTaskKeys = checkIfListIsInsideList(
+        dataItemKeys,
+        dataItemKeys
+      );
+
+      if (!doesObjectHaveAllTaskKeys) {
+        showErrrorMessageFilesInvalid();
+        return;
+      }
+    }
+
     setTasksList(obj);
   };
 

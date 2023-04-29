@@ -1,3 +1,4 @@
+// TASK ITEM
 .taskItem {
   display: flex;
   align-items: center;
@@ -35,4 +36,9 @@
       margin-left: auto;
     }
   }
+}
+
+// UPLOAD FILE INPUT
+.uploadFileInput {
+  display: none;
 }

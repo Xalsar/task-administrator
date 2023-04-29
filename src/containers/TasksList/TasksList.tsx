@@ -67,7 +67,13 @@ const TasksList = () => {
             <Button className="mx-3" onClick={handleClickDownloadTasks}>
               Download current tasks (JSON)
             </Button>
-            <input id="file" type="file" onChange={handleUploadFile} />
+            <label htmlFor="filesInput">Upload tasks (JSON)</label>
+            <input
+              id="filesInput"
+              type="file"
+              onChange={handleUploadFile}
+              className={classes.uploadFileInput}
+            />
 
             <ListGroup>
               {tasksList.map((task, index) => (
