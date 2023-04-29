@@ -125,20 +125,21 @@ const TaskForm = ({ save, task }: Props) => {
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId={`task.date-default`}>
-              <Form.Label>Pick a date to add to list</Form.Label>
+              <Form.Label>Pick a day to add to task</Form.Label>
 
               <Form.Control
                 type="date"
                 placeholder=""
                 value={dateToAdd}
                 onChange={handlePickDate}
+                isInvalid={tryedToAddExistingDate}
               />
             </Form.Group>
             <Button
               onClick={handleClickAddDateToList}
               disabled={isNoDatePicked}
             >
-              Add date to list
+              Add day to list
             </Button>
             {tryedToAddExistingDate && (
               <Form.Control.Feedback type="invalid" className="d-block">
@@ -161,12 +162,16 @@ const TaskForm = ({ save, task }: Props) => {
                 ))}
               </ListGroup>
             ) : (
-              <Alert>
+              <Alert className="mt-3">
                 <p>There are no days in this task </p>
                 <hr />
                 <p>
-                  Use the input above and the button "Add date to list" to add
-                  some.
+                  Pick/type one with the input above. Then pres "Add day to
+                  task" to add it to the task.
+                </p>
+                <p>
+                  If you do not pick at least one day. The current day is gonna
+                  be picked automatically.
                 </p>
               </Alert>
             )}

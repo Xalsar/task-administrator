@@ -14,6 +14,8 @@ const useTasksList = (startingTasks: Task[]) => {
   const [tasksList, setTasksList] = useState<Task[]>(startingTasks);
   const [taskIdToEdit, setTaskIdToEdit] = useState<string>();
 
+  const areTasksToDisplay = tasksList.length > 0;
+
   // CREATE TASK
   const handleClickOpenCreateTaskModal = () => setShowCreateTaskModal(true);
   const handleClickCloseCreateTaskModal = () => setShowCreateTaskModal(false);
@@ -132,6 +134,7 @@ const useTasksList = (startingTasks: Task[]) => {
   };
 
   return {
+    areTasksToDisplay,
     // CREATE TASK MODAL
     showCreateTaskModal,
     handleClickOpenCreateTaskModal,

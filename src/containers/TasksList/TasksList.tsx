@@ -1,12 +1,11 @@
 import Task from "../../../types/Task";
 
-import labels from "../../../data/labels.json";
-
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 import CreateTaskModal from "../CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "../EditTaskModal/EditTaskModal";
@@ -21,6 +20,7 @@ type Props = {
 
 const TasksList = ({ startingTasks }: Props) => {
   const {
+    areTasksToDisplay,
     // CREATE TASK MODAL
     showCreateTaskModal,
     handleClickOpenCreateTaskModal,
@@ -81,31 +81,37 @@ const TasksList = ({ startingTasks }: Props) => {
               className={classes.uploadFileInput}
             />
 
-            <ListGroup>
-              {tasksList.map((task: Task, index: number) => (
-                <ListGroup.Item className={classes.taskItem} key={index}>
-                  <div>{task.name}</div>
-                  <div>{task.type}</div>
-                  <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
-                  <div>{task.timeSpend}h</div>
-                  <div>{task.daysList.length} days</div>
-                  <div>
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleClickEditTask(task.id)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => handleClickRemoveTask(task.id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+            {areTasksToDisplay ? (
+              <ListGroup>
+                {tasksList.map((task: Task, index: number) => (
+                  <ListGroup.Item className={classes.taskItem} key={index}>
+                    <div>{task.name}</div>
+                    <div>{task.type}</div>
+                    <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
+                    <div>{task.timeSpend}h</div>
+                    <div>{task.daysList.length} days</div>
+                    <div>
+                      <Button
+                        variant="secondary"
+                        onClick={() => handleClickEditTask(task.id)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => handleClickRemoveTask(task.id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            ) : (
+              <Alert>
+                There are no tasks to show. Add one by clicking "Add a task"
+              </Alert>
+            )}
           </Col>
         </Row>
       </Container>
