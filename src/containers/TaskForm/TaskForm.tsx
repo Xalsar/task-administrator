@@ -86,19 +86,17 @@ const TaskForm = ({ save, task }: Props) => {
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="task.spend">
-              <Form.Label>Time spent</Form.Label>
+              <Form.Label>Time spent (h)</Form.Label>
               <Form.Control
-                type="number"
+                type="string"
                 placeholder=""
                 value={timeSpend}
                 onChange={handleTypeTimeSpend}
                 isValid={hasSubmittedForm && isValid.timeSpend}
                 isInvalid={hasSubmittedForm && !isValid.timeSpend}
-                min={0}
-                step="0.01"
               />
               <Form.Control.Feedback type="invalid">
-                Time spent is required
+                Time spent is required and must be a positive number
               </Form.Control.Feedback>
             </Form.Group>
           </Col>

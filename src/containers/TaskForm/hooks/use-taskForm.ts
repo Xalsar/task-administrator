@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 
 import moment from "moment";
 
+import isNumeric from "@/utils/isNumber";
+
 type Props = {
   save: (data: Task | TaskDataToSave) => void;
   taskToEdit: Task | undefined;
@@ -13,7 +15,7 @@ type Props = {
 const useTaskForm = ({ save, taskToEdit }: Props) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("story");
-  const [timeSpend, setTimeSpend] = useState(0);
+  const [timeSpend, setTimeSpend] = useState("");
   const [labelsListIds, setLabelsListIds] = useState<number[]>([]);
 
   const [dateToAdd, setDateToAdd] = useState("");
@@ -28,7 +30,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
 
     setName(taskToEdit.name);
     setType(taskToEdit.type);
-    setTimeSpend(taskToEdit.timeSpend);
+    setTimeSpend(String(taskToEdit.timeSpend));
     setLabelsListIds(taskToEdit.labels);
     setDatesList(taskToEdit.daysList);
   }, [taskToEdit]);
@@ -48,7 +50,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   //   TYPE SPEND
   const handleTypeTimeSpend = (event: React.FormEvent<EventTarget>) => {
     const target = event.target as HTMLInputElement;
-    setTimeSpend(Number(target.value));
+    setTimeSpend(String(target.value));
   };
 
   //   LABEL
@@ -107,7 +109,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   // VALIDATION
   const isNameValid = name.length > 0;
   const isTypeValid = true;
-  const isTimeSpendValid = timeSpend > 0;
+  const isTimeSpendValid = isNumeric(timeSpend) && Number(timeSpend) > 0;
 
   const isValid = {
     name: isNameValid,
@@ -127,7 +129,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
         name,
         type,
         labels: labelsListIds,
-        timeSpend,
+        timeSpend: Math.round(Number(timeSpend) * 100) / 100,
         daysList: datesList,
       });
     }
