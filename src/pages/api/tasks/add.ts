@@ -25,6 +25,11 @@ export default async function handler(
     const tasksList = JSON.parse(fileContents);
 
     const taskToAdd = { ...enteringData, id: uid() };
+
+    if (taskToAdd.daysList.length === 0) {
+      taskToAdd.daysList.push(new Date());
+    }
+
     const updatedTasksList = [...tasksList, taskToAdd];
 
     const jsonDirectory = getDataPath();
