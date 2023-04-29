@@ -36,11 +36,14 @@ const TaskForm = ({ save, task }: Props) => {
     dateToAdd,
     handlePickDate,
     datesList,
-    handleClickAddDateToList,
     formateDateToString,
     handleClickDeleteDate,
     tryedToAddExistingDate,
     isNoDatePicked,
+    // DATE FORM
+    isDateFormValid,
+    hasSubmittedDateForm,
+    handleSubmitAddDateForm,
     // SUBMIT FORM
     isValid,
     isFormValid,
@@ -49,8 +52,8 @@ const TaskForm = ({ save, task }: Props) => {
   } = useTaskForm({ save, taskToEdit: task });
 
   return (
-    <Form onSubmit={handleSubmitForm}>
-      <Container>
+    <Container>
+      <Form onSubmit={handleSubmitForm}>
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId="task.name">
@@ -122,6 +125,8 @@ const TaskForm = ({ save, task }: Props) => {
             })}
           </Col>
         </Row>
+      </Form>
+      <Form onSubmit={handleSubmitAddDateForm}>
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId={`task.date-default`}>
@@ -132,13 +137,10 @@ const TaskForm = ({ save, task }: Props) => {
                 placeholder=""
                 value={dateToAdd}
                 onChange={handlePickDate}
-                isInvalid={tryedToAddExistingDate}
+                isInvalid={hasSubmittedDateForm && !isDateFormValid}
               />
             </Form.Group>
-            <Button
-              onClick={handleClickAddDateToList}
-              disabled={isNoDatePicked}
-            >
+            <Button disabled={isNoDatePicked} type="submit">
               Add day to list
             </Button>
             {tryedToAddExistingDate && (
@@ -187,8 +189,8 @@ const TaskForm = ({ save, task }: Props) => {
             )}
           </Col>
         </Row>
-      </Container>
-    </Form>
+      </Form>
+    </Container>
   );
 };
 

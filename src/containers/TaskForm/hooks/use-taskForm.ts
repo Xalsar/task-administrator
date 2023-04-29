@@ -22,6 +22,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   const [datesList, setDatesList] = useState<Date[]>([]);
 
   const [hasSubmittedForm, setHasSubmittedForm] = useState(false);
+  const [hasSubmittedDateForm, setHasSubmittedDateForm] = useState(false);
 
   const [tryedToAddExistingDate, setTryedToAddExistingDate] = useState(false);
 
@@ -84,27 +85,35 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   const formateDateToString = (date: Date | undefined) =>
     moment(date).format("YYYY-MM-DD");
 
-  const handleClickAddDateToList = () => {
-    const formattedDate = new Date(dateToAdd);
-
-    const isPickedDateAlreadyInTheList = datesList.find(
-      (date) => formateDateToString(date) === formateDateToString(formattedDate)
-    );
-
-    if (isPickedDateAlreadyInTheList) {
-      setTryedToAddExistingDate(true);
-      return;
-    }
-
-    setDateToAdd("");
-    setDatesList((prev) => [...prev, formattedDate]);
-  };
-
   const handleClickDeleteDate = (dateToDelete: Date) => {
     setDatesList((prev) => prev.filter((date) => date !== dateToDelete));
   };
 
   const isNoDatePicked = !dateToAdd;
+
+  // DATE FORM
+  const isDateFormValid = !!dateToAdd && !tryedToAddExistingDate;
+
+  const handleSubmitAddDateForm = (event: React.FormEvent<EventTarget>) => {
+    event.preventDefault();
+
+    setHasSubmittedDateForm(true);
+
+    if (isDateFormValid) {
+      const formattedDate = new Date(dateToAdd);
+      const isPickedDateAlreadyInTheList = datesList.find(
+        (date) =>
+          formateDateToString(date) === formateDateToString(formattedDate)
+      );
+      if (isPickedDateAlreadyInTheList) {
+        setTryedToAddExistingDate(true);
+        return;
+      }
+      setDateToAdd("");
+      setDatesList((prev) => [...prev, formattedDate]);
+      setHasSubmittedDateForm(false);
+    }
+  };
 
   // VALIDATION
   const isNameValid = name.length > 0;
@@ -153,11 +162,14 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
     dateToAdd,
     handlePickDate,
     datesList,
-    handleClickAddDateToList,
     formateDateToString,
     handleClickDeleteDate,
     tryedToAddExistingDate,
     isNoDatePicked,
+    // DATE FORM
+    isDateFormValid,
+    hasSubmittedDateForm,
+    handleSubmitAddDateForm,
     // SUBMIT FORM
     isValid,
     isFormValid,
