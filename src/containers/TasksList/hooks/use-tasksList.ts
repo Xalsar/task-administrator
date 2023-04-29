@@ -7,6 +7,8 @@ import Task from "../../../../types/Task";
 
 import axios from "axios";
 
+import swalErrorInRequest from "../utils/alerts/swalErrorInRequest";
+
 const useTasksList = (startingTasks: Task[]) => {
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
   const [tasksList, setTasksList] = useState<Task[]>(startingTasks);
@@ -28,6 +30,7 @@ const useTasksList = (startingTasks: Task[]) => {
       setTasksList((prev) => [...prev, createdTask]);
       setShowCreateTaskModal(false);
     } catch (error) {
+      swalErrorInRequest();
       console.log(error);
     }
   };
@@ -39,6 +42,7 @@ const useTasksList = (startingTasks: Task[]) => {
 
       setTasksList((prev) => prev.filter((task) => task.id !== taskId));
     } catch (error) {
+      swalErrorInRequest();
       console.log(error);
     }
   };
@@ -71,6 +75,7 @@ const useTasksList = (startingTasks: Task[]) => {
       );
       closeEditTaskModal();
     } catch (error) {
+      swalErrorInRequest();
       console.log(error);
     }
   };
@@ -115,6 +120,7 @@ const useTasksList = (startingTasks: Task[]) => {
 
       setTasksList(obj);
     } catch (error) {
+      swalErrorInRequest();
       console.log(error);
     }
   };
