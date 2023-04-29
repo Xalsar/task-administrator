@@ -109,7 +109,7 @@ const TasksList = ({ startingTasks }: Props) => {
               </ListGroup>
             ) : (
               <Alert>
-                There are no tasks to show. Add one by clicking "Add a task"
+                There are no tasks to show. Add one by clicking &quot;Add a task&quot;
               </Alert>
             )}
           </Col>

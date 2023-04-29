@@ -166,8 +166,8 @@ const TaskForm = ({ save, task }: Props) => {
                 <p>There are no days in this task </p>
                 <hr />
                 <p>
-                  Pick/type one with the input above. Then pres "Add day to
-                  task" to add it to the task.
+                  Pick/type one with the input above. Then pres &quot;Add day to
+                  task&quot; to add it to the task.
                 </p>
                 <p>
                   If you do not pick at least one day. The current day is gonna
