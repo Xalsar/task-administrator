@@ -10,7 +10,7 @@ import axios from "axios";
 const useTasksList = (startingTasks: Task[]) => {
   const [showCreateTaskModal, setShowCreateTaskModal] = useState(false);
   const [tasksList, setTasksList] = useState<Task[]>(startingTasks);
-  const [taskIdToEdit, setTaskIdToEdit] = useState<number | undefined>();
+  const [taskIdToEdit, setTaskIdToEdit] = useState<string>();
 
   // CREATE TASK
   const handleClickOpenCreateTaskModal = () => setShowCreateTaskModal(true);
@@ -33,7 +33,7 @@ const useTasksList = (startingTasks: Task[]) => {
   };
 
   // REMOVE TASK
-  const handleClickRemoveTask = async (taskId: Number) => {
+  const handleClickRemoveTask = async (taskId: string) => {
     try {
       await axios.delete("http://localhost:3000/api/tasks/delete?id=" + taskId);
 
@@ -49,7 +49,7 @@ const useTasksList = (startingTasks: Task[]) => {
   const closeEditTaskModal = () => setTaskIdToEdit(undefined);
   const handleClickCloseEditTaskModal = closeEditTaskModal;
 
-  const handleClickEditTask = (taskId: number) => {
+  const handleClickEditTask = (taskId: string) => {
     setTaskIdToEdit(taskId);
   };
 

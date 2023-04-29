@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 import { promises as fs } from "fs";
 
+import uid from "@/utils/uid";
 import getDataPath from "@/utils/api/getDataPath";
 import readFile from "@/utils/api/readFile";
 import checkIfDataIsATask from "@/utils/checkIfDataIsATask";
@@ -23,7 +24,7 @@ export default async function handler(
 
     const tasksList = JSON.parse(fileContents);
 
-    const taskToAdd = { ...enteringData, id: tasksList.length + 1 };
+    const taskToAdd = { ...enteringData, id: uid() };
     const updatedTasksList = [...tasksList, taskToAdd];
 
     const jsonDirectory = getDataPath();

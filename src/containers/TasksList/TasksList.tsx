@@ -84,7 +84,6 @@ const TasksList = ({ startingTasks }: Props) => {
             <ListGroup>
               {tasksList.map((task: Task, index: number) => (
                 <ListGroup.Item className={classes.taskItem} key={index}>
-                  <div>{task.id}</div>
                   <div>{task.name}</div>
                   <div>{task.type}</div>
                   <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
