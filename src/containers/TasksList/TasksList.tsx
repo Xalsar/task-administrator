@@ -1,4 +1,6 @@
-import labels from "../../mockData/labels.json";
+import Task from "../../../types/Task";
+
+import labels from "../../../data/labels.json";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,11 +11,15 @@ import Button from "react-bootstrap/Button";
 import CreateTaskModal from "../CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "../EditTaskModal/EditTaskModal";
 
-import useTasksList from "./hooks/us-tasksList";
+import useTasksList from "./hooks/use-tasksList";
 
 import classes from "./TasksList.module.scss";
 
-const TasksList = () => {
+type Props = {
+  startingTasks: Task[];
+};
+
+const TasksList = ({ startingTasks }: Props) => {
   const {
     // CREATE TASK MODAL
     showCreateTaskModal,
@@ -36,7 +42,7 @@ const TasksList = () => {
     handleClickDownloadTasks,
     // UPLOAD FILE
     handleUploadFile,
-  } = useTasksList();
+  } = useTasksList(startingTasks);
 
   return (
     <>
@@ -76,7 +82,7 @@ const TasksList = () => {
             />
 
             <ListGroup>
-              {tasksList.map((task, index) => (
+              {tasksList.map((task: Task, index: number) => (
                 <ListGroup.Item className={classes.taskItem} key={index}>
                   <div>{task.id}</div>
                   <div>{task.name}</div>

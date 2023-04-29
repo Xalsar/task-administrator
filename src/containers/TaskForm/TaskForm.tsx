@@ -1,6 +1,4 @@
-import Task from "../../../types/Task";
-import Label from "../../../types/Label";
-import SaveTask from "../../../types/SaveTask";
+import labelsList from "../../../data/labels.json";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,7 +7,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import ListGroup from "react-bootstrap/ListGroup";
-import labelsList from "../../mockData/labels.json";
+
+import Task from "../../../types/Task";
+import SaveTask from "../../../types/SaveTask";
 
 import useTaskForm from "./hooks/use-taskForm";
 
