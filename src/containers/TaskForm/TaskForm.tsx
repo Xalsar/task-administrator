@@ -86,7 +86,7 @@ const TaskForm = ({ save, task }: Props) => {
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="task.spend">
-              <Form.Label>Time spend</Form.Label>
+              <Form.Label>Time spent</Form.Label>
               <Form.Control
                 type="number"
                 placeholder=""
@@ -94,9 +94,11 @@ const TaskForm = ({ save, task }: Props) => {
                 onChange={handleTypeTimeSpend}
                 isValid={hasSubmittedForm && isValid.timeSpend}
                 isInvalid={hasSubmittedForm && !isValid.timeSpend}
+                min={0}
+                step="0.01"
               />
               <Form.Control.Feedback type="invalid">
-                Time spend is required
+                Time spent is required
               </Form.Control.Feedback>
             </Form.Group>
           </Col>
@@ -125,7 +127,7 @@ const TaskForm = ({ save, task }: Props) => {
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId={`task.date-default`}>
-              <Form.Label>Pick a day to add to task</Form.Label>
+              <Form.Label>Days the task was done</Form.Label>
 
               <Form.Control
                 type="date"
@@ -163,11 +165,11 @@ const TaskForm = ({ save, task }: Props) => {
               </ListGroup>
             ) : (
               <Alert className="mt-3">
-                <p>There are no days in this task </p>
+                <p>There are no days in this task</p>
                 <hr />
                 <p>
-                  Pick/type one with the input above. Then pres &quot;Add day to
-                  task&quot; to add it to the task.
+                  Pick/type one with the input above. Then press &quot;Add day
+                  to task&quot; to add it to the task.
                 </p>
                 <p>
                   If you do not pick at least one day. The current day is gonna

@@ -88,7 +88,7 @@ const TasksList = ({ startingTasks }: Props) => {
                     <div>{task.name}</div>
                     <div>{task.type}</div>
                     <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
-                    <div>{task.timeSpend}h</div>
+                    <div>{task.timeSpend} h</div>
                     <div>{task.daysList.length} days</div>
                     <div>
                       <Button
@@ -109,7 +109,8 @@ const TasksList = ({ startingTasks }: Props) => {
               </ListGroup>
             ) : (
               <Alert>
-                There are no tasks to show. Add one by clicking &quot;Add a task&quot;
+                There are no tasks to show. Add one by clicking &quot;Add a
+                task&quot;
               </Alert>
             )}
           </Col>

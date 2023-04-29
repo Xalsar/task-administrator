@@ -7,6 +7,7 @@ import Task from "../../../../types/Task";
 
 import axios from "axios";
 
+import showErrrorMessageFilesInvalid from "../utils/alerts/showErrrorMessageFilesInvalidshowErrrorMessageFilesInvalid";
 import swalErrorInRequest from "../utils/alerts/swalErrorInRequest";
 
 const useTasksList = (startingTasks: Task[]) => {
@@ -122,7 +123,7 @@ const useTasksList = (startingTasks: Task[]) => {
 
       setTasksList(obj);
     } catch (error) {
-      swalErrorInRequest();
+      showErrrorMessageFilesInvalid();
       console.log(error);
     }
   };
