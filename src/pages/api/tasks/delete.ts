@@ -21,13 +21,13 @@ export default async function handler(
       return;
     }
 
-    const taskId = Number(enteringData.id);
+    const taskId = enteringData.id;
 
     const fileContents = await readFile();
 
     const tasksList = JSON.parse(fileContents);
     const updatedTasksList = tasksList.filter(
-      (task: Task) => Number(task.id) !== taskId
+      (task: Task) => task.id !== taskId
     );
 
     const jsonDirectory = getDataPath();
