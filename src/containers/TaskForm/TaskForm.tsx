@@ -53,7 +53,7 @@ const TaskForm = ({ save, task }: Props) => {
 
   return (
     <Container>
-      <Form onSubmit={handleSubmitForm}>
+      <Form id="taskForm" onSubmit={handleSubmitForm}>
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId="task.name">
@@ -181,7 +181,9 @@ const TaskForm = ({ save, task }: Props) => {
         </Row>
         <Row>
           <Col>
-            <Button type="submit">Submit</Button>
+            <Button form="taskForm" type="submit">
+              Submit
+            </Button>
             {hasSubmittedForm && !isFormValid && (
               <Form.Control.Feedback type="invalid" className="d-block">
                 Form could not be sumbitted, there are errors in the fields
