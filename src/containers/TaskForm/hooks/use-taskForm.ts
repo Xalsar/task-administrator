@@ -30,8 +30,18 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   useEffect(() => {
     if (!taskToEdit) return;
 
-    const formatedTimeSpendH = Math.trunc(Number(taskToEdit.timeSpend) / 60);
-    const formatedTimeSpendM = taskToEdit.timeSpend % 60;
+    let formatedTimeSpendH: string | number = Math.trunc(
+      Number(taskToEdit.timeSpend) / 60
+    );
+    let formatedTimeSpendM: string | number = taskToEdit.timeSpend % 60;
+
+    if (formatedTimeSpendH === 0) {
+      formatedTimeSpendH = "";
+    }
+
+    if (formatedTimeSpendM === 0) {
+      formatedTimeSpendM = "";
+    }
 
     setName(taskToEdit.name);
     setType(taskToEdit.type);
@@ -132,15 +142,22 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
   // HOURS
   const isTimeSpendHoursDefined = timeSpendHours.length > 0;
   const isTimeSpendHoursNumeric = isPositiveInteger(timeSpendHours);
+  const isTimeSpendHoursMoraThan0 =
+    isTimeSpendHoursNumeric && Number(timeSpendHours) > 0;
+
   const isTimeSpendHoursValid =
     !isTimeSpendHoursDefined ||
-    (isTimeSpendHoursDefined && isPositiveInteger(timeSpendHours));
+    (isTimeSpendHoursDefined &&
+      isTimeSpendHoursMoraThan0 &&
+      isPositiveInteger(timeSpendHours));
 
   // MINUTES
   const isTimeSpendMinutesDefined = timeSpendMinutes.length > 0;
   const isTimeSpendMinutesNumeric = isPositiveInteger(timeSpendMinutes);
+
   const isTimeSpendMinutesBetweenRanges =
     Number(timeSpendMinutes) > -1 && Number(timeSpendMinutes) < 60;
+
   const isTimeSpendMinutesValid =
     !isTimeSpendMinutesDefined ||
     (isTimeSpendMinutesDefined &&
@@ -148,8 +165,7 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
       isTimeSpendMinutesBetweenRanges);
 
   const isAnyTimeSpendDefined =
-    (isTimeSpendHoursDefined && Number(timeSpendHours) > 0) ||
-    (isTimeSpendMinutesDefined && Number(timeSpendMinutes) > 0);
+    isTimeSpendHoursDefined || isTimeSpendMinutesDefined;
 
   const isValid = {
     name: isNameValid,
@@ -163,20 +179,20 @@ const useTaskForm = ({ save, taskToEdit }: Props) => {
 
   if (!isAnyTimeSpendDefined) {
     timeSpendHoursErrorMessage =
-      "You need to specify how much time you spend on the tash";
-  } else if (!isTimeSpendHoursNumeric || !isTimeSpendMinutesBetweenRanges) {
+      "You need to specify how much time you spend on the task";
+  } else if (!isTimeSpendHoursNumeric || !isTimeSpendHoursMoraThan0) {
     timeSpendHoursErrorMessage =
-      "Time spend (h) must be a positive integer. ex: (1,2,3,4,5...)";
+      "Time spent (h) must be a positive integer. ex: (1,2,3,4,5...). Leave it blank if you only want to specify the minutes.";
   }
 
   let timeSpendMinutesErrorMessage = "";
 
   if (!isAnyTimeSpendDefined) {
     timeSpendMinutesErrorMessage =
-      "You need to specify how much time you spend on the tash";
+      "You need to specify how much time you spend on the task";
   } else if (!isTimeSpendMinutesNumeric || !isTimeSpendMinutesBetweenRanges) {
     timeSpendMinutesErrorMessage =
-      "Time spend (m) must be an integer between 0 and 60";
+      "Time spent (min) must be an integer between 0 and 60";
   }
 
   const errorMessages = {
