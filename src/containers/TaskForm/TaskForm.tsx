@@ -30,8 +30,11 @@ const TaskForm = ({ save, task }: Props) => {
     checkIfLabelSelected,
     handleClickLabel,
     // TIME SPEND
-    timeSpend,
+    timeSpendHours,
     handleTypeTimeSpend,
+    timeSpendMinutes,
+    handleTimeSpendMinutes,
+    errorMessages,
     // DATES LIST
     dateToAdd,
     handlePickDate,
@@ -73,7 +76,7 @@ const TaskForm = ({ save, task }: Props) => {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={6}>
             <Form.Group className="mb-3" controlId="task.type">
               <Form.Label>Type</Form.Label>
               <Form.Select
@@ -87,19 +90,35 @@ const TaskForm = ({ save, task }: Props) => {
               </Form.Select>
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group className="mb-3" controlId="task.spend">
+          <Col lg={3}>
+            <Form.Group className="mb-3" controlId="task.spentHpurs">
               <Form.Label>Time spent (h)</Form.Label>
               <Form.Control
                 type="string"
                 placeholder=""
-                value={timeSpend}
+                value={timeSpendHours}
                 onChange={handleTypeTimeSpend}
-                isValid={hasSubmittedForm && isValid.timeSpend}
-                isInvalid={hasSubmittedForm && !isValid.timeSpend}
+                isValid={hasSubmittedForm && isValid.timeSpendHours}
+                isInvalid={hasSubmittedForm && !isValid.timeSpendHours}
               />
               <Form.Control.Feedback type="invalid">
-                Time spent is required and must be a positive number
+                {errorMessages.timeSpendHours}
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Col>
+          <Col lg={3}>
+            <Form.Group className="mb-3" controlId="task.spendMinutes">
+              <Form.Label>Time spent (min)</Form.Label>
+              <Form.Control
+                type="string"
+                placeholder=""
+                value={timeSpendMinutes}
+                onChange={handleTimeSpendMinutes}
+                isValid={hasSubmittedForm && isValid.timeSpendMinutes}
+                isInvalid={hasSubmittedForm && !isValid.timeSpendMinutes}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errorMessages.timeSpendMinutes}
               </Form.Control.Feedback>
             </Form.Group>
           </Col>

@@ -1,11 +1,14 @@
 import Task from "../../../types/Task";
 
+import Link from "next/link";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import Navbar from "react-bootstrap/Navbar";
 
 import CreateTaskModal from "../CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "../EditTaskModal/EditTaskModal";
@@ -38,6 +41,7 @@ const TasksList = ({ startingTasks }: Props) => {
     saveEditTask,
     // DISPLAY TASKS
     getLabelNamesFromIds,
+    getCorrectTimeSpendFormat,
     // DOWNLOAD
     handleClickDownloadTasks,
     // UPLOAD FILE
@@ -46,6 +50,18 @@ const TasksList = ({ startingTasks }: Props) => {
 
   return (
     <>
+      <Navbar bg="light">
+        <Container>
+          <Navbar.Brand>Time tracking app</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Link href="https://github.com/Xalsar/task-administrator">
+              Github
+            </Link>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+
       {/* CREATE TASK MODAL */}
       <CreateTaskModal
         show={showCreateTaskModal}
@@ -88,7 +104,7 @@ const TasksList = ({ startingTasks }: Props) => {
                     <div>{task.name}</div>
                     <div>{task.type}</div>
                     <div>{getLabelNamesFromIds(task.labels).join(", ")}</div>
-                    <div>{task.timeSpend} h</div>
+                    <div>{getCorrectTimeSpendFormat(task.timeSpend)}</div>
                     <div>{task.daysList.length} days</div>
                     <div>
                       <Button

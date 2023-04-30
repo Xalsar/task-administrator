@@ -92,6 +92,13 @@ const useTasksList = (startingTasks: Task[]) => {
     });
   };
 
+  const getCorrectTimeSpendFormat = (timeSpend: number) => {
+    const hoursSpend = Math.trunc(timeSpend / 60);
+    const minutes = timeSpend % 60;
+
+    return `${hoursSpend}h ${minutes}m`;
+  };
+
   // DOWNLOAD
   const handleClickDownloadTasks = () => {
     const obj = tasksList;
@@ -153,6 +160,7 @@ const useTasksList = (startingTasks: Task[]) => {
     saveEditTask,
     // DISPLAY TASKS
     getLabelNamesFromIds,
+    getCorrectTimeSpendFormat,
     // DOWNLOAD
     handleClickDownloadTasks,
     // UPLOAD FILE
